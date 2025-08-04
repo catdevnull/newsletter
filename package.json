@@ -2,9 +2,6 @@
   "name": "raindrop-newsletter",
   "version": "1.0.0",
   "scripts": {
-    "dev": "bun --bun vite",
-    "build": "bun --bun vite build",
-    "preview": "bun --bun vite preview",
     "start": "bun run index.html"
   },
   "dependencies": {
