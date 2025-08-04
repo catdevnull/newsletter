@@ -1,0 +1,21 @@
+{
+  "name": "raindrop-newsletter",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "bun --bun vite",
+    "build": "bun --bun vite build",
+    "preview": "bun --bun vite preview",
+    "start": "bun run index.html"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.84.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.7"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.0.0"
+  }
+}
