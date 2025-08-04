@@ -2,7 +2,7 @@
   "name": "raindrop-newsletter",
   "version": "1.0.0",
   "scripts": {
-    "start": "bun run index.html"
+    "start": "bun run --host=0.0.0.0 index.html"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.84.1",
