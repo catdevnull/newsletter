@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 function getWeekDates() {
   const now = new Date();
@@ -23,16 +23,16 @@ interface Raindrop {
 }
 
 const fetchRaindrops = async (apiKey: string): Promise<Raindrop[]> => {
-  const response = await fetch('https://api.raindrop.io/rest/v1/raindrops/0', {
+  const response = await fetch("https://api.raindrop.io/rest/v1/raindrops/0", {
     headers: {
       Authorization: `Bearer ${apiKey}`,
     },
   });
-  
+
   if (!response.ok) {
     throw new Error(`Error: ${response.status}`);
   }
-  
+
   const data = await response.json();
   return data.items;
 };
@@ -42,8 +42,12 @@ function App() {
   const [endDate, setEndDate] = useState("");
   const [apiKey, setApiKey] = useState("");
 
-  const { data: allRaindrops = [], isLoading, error } = useQuery({
-    queryKey: ['raindrops', apiKey],
+  const {
+    data: allRaindrops = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["raindrops", apiKey],
     queryFn: () => fetchRaindrops(apiKey),
     enabled: !!apiKey,
     staleTime: 5 * 60 * 1000, // 5 minutes
@@ -51,11 +55,11 @@ function App() {
 
   const raindrops = React.useMemo(() => {
     if (!startDate || !endDate || !allRaindrops.length) return allRaindrops;
-    
+
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);
     endDateObj.setHours(23, 59, 59, 999);
-    
+
     return allRaindrops.filter((raindrop) => {
       const createdDate = new Date(raindrop.created);
       return createdDate >= startDateObj && createdDate <= endDateObj;
@@ -66,8 +70,8 @@ function App() {
     const { start, end } = getWeekDates();
     setStartDate(start);
     setEndDate(end);
-    
-    const savedApiKey = localStorage.getItem('raindropApiKey');
+
+    const savedApiKey = localStorage.getItem("raindropApiKey");
     if (savedApiKey) {
       setApiKey(savedApiKey);
     }
@@ -75,7 +79,7 @@ function App() {
 
   useEffect(() => {
     if (apiKey) {
-      localStorage.setItem('raindropApiKey', apiKey);
+      localStorage.setItem("raindropApiKey", apiKey);
     }
   }, [apiKey]);
 
@@ -106,9 +110,9 @@ function App() {
       const { title, link, tags, cover } = raindrop;
 
       const tagsMarkdown =
-        tags.length > 0
-          ? `\n  Tags: ${tags.map((tag) => `\`${tag}\``).join(", ")}`
-          : "";
+        // tags.length > 0
+        //   ? `\n  Tags: ${tags.map((tag) => `\`${tag}\``).join(", ")}`
+        "";
       const imageMarkdown = cover ? `\n  ![Cover](${cover})` : "";
 
       let raindropMarkdown: string;
@@ -187,7 +191,9 @@ ${link}`;
           onChange={(e) => setEndDate(e.target.value)}
           placeholder="End Date"
         />
-        <button type="button" onClick={setThisWeek}>This Week</button>
+        <button type="button" onClick={setThisWeek}>
+          This Week
+        </button>
         {isLoading && <div>Loading raindrops...</div>}
       </div>
 
@@ -222,7 +228,11 @@ ${link}`;
                   </div>
                 )}
                 {raindrop.cover && (
-                  <img src={raindrop.cover} alt="Cover" className="cover-image" />
+                  <img
+                    src={raindrop.cover}
+                    alt="Cover"
+                    className="cover-image"
+                  />
                 )}
               </div>
             ))}
